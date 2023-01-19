@@ -21,4 +21,41 @@ class StringCalculatorTest extends TestCase
 
         $this->assertEquals(5, $calculator->add('5'));
     }
+
+    /** @test */
+    public function it_can_add_two_or_more_numbers()
+    {
+        $calculator = new StringCalculator();
+
+        $this->assertEquals(10, $calculator->add('5,5'));
+        $this->assertEquals(19, $calculator->add('5,5,4,5'));
+    }
+
+    /** @test */
+    public function it_can_also_accept_newline_as_delimiter()
+    {
+        $calculator = new StringCalculator();
+
+        $this->assertEquals(10, $calculator->add("5\n5"));
+        $this->assertEquals(15, $calculator->add("5\n5\n5"));
+        $this->assertEquals(25, $calculator->add("5\n5\n5,5,5"));
+    }
+
+    /** @test */
+    public function it_wont_allow_negative_numbers()
+    {
+        $calculator = new StringCalculator();
+
+        $this->expectException(\Exception::class);
+
+        $calculator->add("5,-5");
+    }
+
+    /** @test */
+    public function it_ignores_number_greater_than_1000()
+    {
+        $calculator = new StringCalculator();
+
+        $this->assertEquals(15, $calculator->add("15,1001"));
+    }
 }
