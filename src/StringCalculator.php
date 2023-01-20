@@ -6,11 +6,15 @@ class StringCalculator
 {
     public function add(string $number)
     {
-        if (!$number) {
-            return 0;
+        $delimiter = ",|\n";
+
+        if (preg_match("/\/\/(.)\n/", $number, $matches)) {
+            $number = str_replace($matches[0], '', $number);
+            $delimiter = $matches[1];
         }
 
-        $numbers = preg_split("/,|\n/", $number);
+
+        $numbers = preg_split("/{$delimiter}/", $number);
 
         foreach ($numbers as $value) {
             if ($value < 0) {
@@ -18,7 +22,7 @@ class StringCalculator
             }
         }
 
-        $numbers = array_filter($numbers, fn($number) => $number < 1000);
+        $numbers = array_filter($numbers, fn($number) => $number <= 1000);
 
         return array_sum($numbers);
     }
