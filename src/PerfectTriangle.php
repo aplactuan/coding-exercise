@@ -11,12 +11,12 @@ class PerfectTriangle
             return false;
         }
 
-        $stack = 0;
+        $balls = 0;
 
-        for ($iteration=1;$number > $stack; $iteration++) {
-            $stack = $stack + $iteration;
+        for ($stack=1;$number > $balls; $stack++) {
+            $balls = $balls + $stack;
         }
 
-        return $stack == $number;
+        return $balls == $number;
     }
 }
