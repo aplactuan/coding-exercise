@@ -11,6 +11,7 @@ class BaseFilter implements WordleFilter
             'green',
             'genie',
             'might',
+            'sight',
             'cable',
             'sheet',
             'cloud',

@@ -27,4 +27,27 @@ class WordleSolverTest extends TestCase
         $this->assertTrue(in_array('boats', $wordle->results()));
         $this->assertCount(2, $wordle->results());
     }
+
+    public function test_it_filters_words_which_has_correct_placement()
+    {
+        $wordle = new WordleSolver();
+
+        $wordle->correctOrder('*ig**');
+
+        $results = $wordle->results();
+
+        $this->assertTrue(in_array('might', $wordle->results()));
+        $this->assertCount(2, $wordle->results());
+    }
+
+    public function test_it_filters_correct_placement_and_incorrect_letters()
+    {
+        $wordle = new WordleSolver();
+
+        $wordle->excludeLetters('s');
+        $wordle->correctOrder('*ig**');
+
+        $this->assertTrue(in_array('might', $wordle->results()));
+        $this->assertCount(1, $wordle->results());
+    }
 }
