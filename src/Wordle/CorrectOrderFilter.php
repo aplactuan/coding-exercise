@@ -15,7 +15,7 @@ class CorrectOrderFilter implements WordleFilter
 
     public function getResults(): array
     {
-        $rule = str_replace('*', '.*', $this->correctOrder);
+        $rule = str_replace('*', '.', $this->correctOrder);
 
         return array_filter($this->filter->getResults(), function($string) use ($rule) {
             return preg_match("/" . $rule . "/", $string);
