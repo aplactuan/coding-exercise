@@ -15,7 +15,8 @@ class BaseFilter implements WordleFilter
             'cable',
             'sheet',
             'cloud',
-            'boats'
+            'boats',
+            'angst'
         ];
     }
 }

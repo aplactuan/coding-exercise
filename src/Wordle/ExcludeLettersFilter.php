@@ -15,8 +15,10 @@ class ExcludeLettersFilter implements WordleFilter
 
     public function getResults(): array
     {
-        return array_filter($this->filter->getResults(), function($string) {
-            return preg_match("/^(?!.*[". $this->excludeLetters ."]).*$/", $string);
+        $pattern = '[^' . $this->excludeLetters . ']{5}';
+
+        return array_filter($this->filter->getResults(), function($string) use ($pattern){
+            return preg_match("/". $pattern ."/", $string);
         });
     }
 }

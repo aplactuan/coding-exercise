@@ -5,6 +5,7 @@ namespace App;
 use App\Wordle\BaseFilter;
 use App\Wordle\CorrectOrderFilter;
 use App\Wordle\ExcludeLettersFilter;
+use App\Wordle\MisplacedLettersFilter;
 
 class WordleSolver
 {
@@ -24,7 +25,10 @@ class WordleSolver
                     $wordleFilter = new ExcludeLettersFilter($wordleFilter, $filter);
                     break;
                 case 'correct_order':
-                    $wordleFilter = new CorrectOrderFilter($wordleFilter, $this->filters['correct_order']);
+                    $wordleFilter = new CorrectOrderFilter($wordleFilter, $filter);
+                    break;
+                case 'misplaced_letters':
+                    $wordleFilter = new MisplacedLettersFilter($wordleFilter, $filter);
                     break;
             }
         }
@@ -40,5 +44,10 @@ class WordleSolver
     public function correctOrder(string $string)
     {
         $this->filters['correct_order'] = $string;
+    }
+
+    public function misplacedLetters(string $letters)
+    {
+        $this->filters['misplaced_letters'] = $letters;
     }
 }

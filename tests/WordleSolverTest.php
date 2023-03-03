@@ -18,14 +18,16 @@ class WordleSolverTest extends TestCase
 
         $wordle->excludeLetters('ie');
 
-        $this->assertFalse(in_array('green', $wordle->results()));
-        $this->assertFalse(in_array('genie', $wordle->results()));
-        $this->assertFalse(in_array('might', $wordle->results()));
-        $this->assertFalse(in_array('cable', $wordle->results()));
-        $this->assertFalse(in_array('sheet', $wordle->results()));
-        $this->assertTrue(in_array('cloud', $wordle->results()));
-        $this->assertTrue(in_array('boats', $wordle->results()));
-        $this->assertCount(2, $wordle->results());
+        $results = $wordle->results();
+
+        $this->assertFalse(in_array('green', $results));
+        $this->assertFalse(in_array('genie', $results));
+        $this->assertFalse(in_array('might', $results));
+        $this->assertFalse(in_array('cable', $results));
+        $this->assertFalse(in_array('sheet', $results));
+        $this->assertTrue(in_array('cloud', $results));
+        $this->assertTrue(in_array('boats', $results));
+        $this->assertCount(3, $results);
     }
 
     public function test_it_filters_words_which_has_correct_placement()
@@ -36,8 +38,19 @@ class WordleSolverTest extends TestCase
 
         $results = $wordle->results();
 
-        $this->assertTrue(in_array('might', $wordle->results()));
-        $this->assertCount(2, $wordle->results());
+        $this->assertTrue(in_array('might', $results));
+        $this->assertCount(2, $results);
+    }
+
+    public function test_it_filters_words_that_have_misplaced_letters()
+    {
+        $wordle = new WordleSolver();
+
+        $wordle->misplacedLetters('*s**g');
+
+        $results = $wordle->results();
+
+        $this->assertTrue(in_array('angst', $results));
     }
 
     public function test_it_filters_correct_placement_and_incorrect_letters()
