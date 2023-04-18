@@ -16,6 +16,15 @@ class CarMechanicShop
 
     public function total(): int
     {
-        return (new BaseInspection())->total();
+        $service = new BaseInspection();
+
+        foreach ($this->otherInspection as $inspection) {
+            $service = match ($inspection) {
+                'wheel_alignment' => new WheelAlignmentService($service),
+                'change_oil' => new ChangeOilService($service)
+            };
+        }
+
+        return $service->total();
     }
 }

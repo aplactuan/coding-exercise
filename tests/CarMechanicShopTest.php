@@ -21,6 +21,27 @@ class CarMechanicShopTest extends TestCase
             'wheel_alignment'
         ]);
 
+        $this->assertEquals(35, $service->total());
+    }
+
+    /** @test */
+    public function it_computes_basic_inspection_plus_change_oil()
+    {
+        $service = new CarMechanicShop([
+            'change_oil'
+        ]);
+
         $this->assertEquals(25, $service->total());
+    }
+
+    /** @test */
+    public function it_computes_basic_inspection_change_oil_and_wheel_alignment()
+    {
+        $service = new CarMechanicShop([
+            'wheel_alignment',
+            'change_oil'
+        ]);
+
+        $this->assertEquals(45, $service->total());
     }
 }
