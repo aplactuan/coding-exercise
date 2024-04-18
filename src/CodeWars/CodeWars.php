@@ -42,4 +42,19 @@ class CodeWars
         }
         return true;
     }
+
+    public static function alphabet_position(string $string)
+    {
+        $message = '';
+        $alphabet = str_split('abcdefghijklmnopqrstuvwxyz');
+
+        foreach (str_split($string) as $letter) {
+            $key = array_search(strtolower($letter), $alphabet);
+            if ($key !== false) {
+                $message .= $key + 1 . ' ';
+            }
+        }
+
+        return trim($message);
+    }
 }
