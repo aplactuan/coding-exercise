@@ -57,4 +57,13 @@ class CodeWars
 
         return trim($message);
     }
+
+    public static function to_weird_case(string $string)
+    {
+        return implode(' ', array_map(function ($word) {
+            return implode('', array_map(function ($letter, $index) {
+                return $index % 2 === 0 ? strtoupper($letter) : strtolower($letter) ;
+            }, str_split($word), array_keys(str_split($word))));
+        }, explode(' ', $string)));
+    }
 }
